@@ -1,0 +1,165 @@
+openapi: 3.0.0
+info:
+  description: Client Service
+  title: clientService
+  version: 0.0.1
+servers:
+- url: /
+paths:
+  /api/client/{id}:
+    delete:
+      operationId: DeleteClient
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Successful Client Update
+      summary: Update Existing Client
+      tags:
+      - Client
+      x-accepts: application/json
+      x-tags:
+      - tag: Client
+    get:
+      operationId: GetClient
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+          description: Successful client retrieval
+      summary: Retrieve existing client
+      tags:
+      - Client
+      x-accepts: application/json
+      x-tags:
+      - tag: Client
+    put:
+      operationId: UpdateClient
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+          description: Successful Client Update
+      summary: Update Existing Client
+      tags:
+      - Client
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Client
+  /api/client:
+    get:
+      operationId: GetAllClients
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Client'
+                type: array
+          description: Successful client retrieval
+      summary: Retrieve all clients
+      tags:
+      - Client
+      x-accepts: application/json
+      x-tags:
+      - tag: Client
+    post:
+      operationId: CreateClient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+          description: Successful Client Creation
+      summary: Create new client
+      tags:
+      - Client
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Client
+components:
+  schemas:
+    Entity:
+      properties:
+        id:
+          format: int64
+          type: integer
+        creationDate:
+          format: date-time
+          type: string
+        lastUpdated:
+          format: date-time
+          type: string
+      type: object
+      x-parent: true
+    Client:
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      - properties:
+          fullName:
+            type: string
+          phoneNumber:
+            type: string
+          state:
+            type: string
+        required:
+        - fullName
+        - phoneNumber
+        - state
+        type: object
+      example:
+        lastUpdated: 2000-01-23T04:56:07.000+00:00
+        phoneNumber: phoneNumber
+        fullName: fullName
+        id: 0
+        state: state
+        creationDate: 2000-01-23T04:56:07.000+00:00

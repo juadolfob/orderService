@@ -1,0 +1,119 @@
+openapi: 3.0.0
+info:
+  title: clientService
+  description: Client Service
+  version: 0.0.1
+paths:
+  /api/client/{id}:
+    get:
+      tags:
+        - Client
+      summary: Retrieve existing client
+      operationId: get
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Successful client retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+    delete:
+      tags:
+        - Client
+      summary: Update Existing Client
+      operationId: delete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Successful Client Update
+          content:
+            application/json:
+              schema:
+                type: object
+    put:
+      tags:
+        - Client
+      summary: Update Existing Client
+      operationId: update
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        200:
+          description: Successful Client Update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+
+  /api/client:
+    post:
+      tags:
+        - Client
+      summary: Create new client
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        200:
+          description: Successful Client Creation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+    get:
+      tags:
+        - Client
+      summary: Retrieve all clients
+      operationId: getAll
+      responses:
+        200:
+          description: Successful client retrieval
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Client'
+components:
+  schemas:
+    Client:
+      type: object
+      required:
+        - fullName
+        - phoneNumber
+        - address
+      properties:
+        fullName:
+          type: string
+        phoneNumber:
+          type: string
+        address:
+          type: string
